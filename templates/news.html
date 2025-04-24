@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>GNews 新聞查詢</title>
+    <style>
+        body {
+            font-family: "Microsoft JhengHei", sans-serif;
+            background: url("/static/news-bg.png") no-repeat center center fixed;
+            background-size: cover;
+            padding: 40px;
+            text-align: center;
+            color: #f1f379;
+        }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        input[type="text"], select {
+            padding: 10px;
+            width: 300px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+        }
+
+        .news-block {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+            background-color: rgba(255, 255, 255, 0.85); /* 半透明區塊 */
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .news-item {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .news-item h3 {
+            margin: 0;
+        }
+
+        .news-item a {
+            text-decoration: none;
+            color: #2c3e50;
+        }
+
+        .news-item img {
+            max-width: 100%;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        .news-item p {
+            color: #555;
+        }
+
+        .top-nav {
+            margin-bottom: 20px;
+        }
+
+        .top-nav a {
+            text-decoration: none;
+            background-color: #2ecc71;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .top-nav a:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <h1>GNews 即時新聞查詢</h1>
+
+    <div class="top-nav">
+        <a href="/member">🏠 回會員首頁</a>
+    </div>
+
+    <form method="get" action="/member/news">
+        <input type="text" name="q" placeholder="輸入關鍵字" value="{{ q or '' }}" required>
+        <select name="lang">
+            <option value="zh" {% if lang == 'zh' %}selected{% endif %}>中文</option>
+            <option value="en" {% if lang == 'en' %}selected{% endif %}>英文</option>
+            <option value="ja" {% if lang == 'ja' %}selected{% endif %}>日文</option>
+            <option value="fr" {% if lang == 'fr' %}selected{% endif %}>法文</option>
+            <option value="de" {% if lang == 'de' %}selected{% endif %}>德文</option>
+        </select>
+        <button type="submit">搜尋</button>
+    </form>
+
+    {% if articles %}
+    <div class="news-block">
+        {% for article in articles %}
+        <div class="news-item">
+            <h3><a href="{{ article.url }}" target="_blank">{{ article.title }}</a></h3>
+            <p>來源：{{ article.source.name }}｜時間：{{ article.publishedAt[:10] }}</p>
+            {% if article.image %}
+                <img src="{{ article.image }}" alt="news image">
+            {% endif %}
+            <p>{{ article.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>會員系統 - 首頁</title>
+    <style>
+        body {
+            font-family: "Microsoft JhengHei", sans-serif;
+            background: url("/static/index-bg.png") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 50px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .wrapper {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 24px;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 16px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            margin-top: 8px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        hr {
+            margin: 30px 0;
+            border: none;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>📋 註冊</h1>
+        <form action="/signup" method="post">
+            <input type="text" name="nickname" placeholder="暱稱" required>
+            <input type="email" name="email" placeholder="電子郵件" required>
+            <input type="password" name="password" placeholder="密碼" required>
+            <button type="submit">註冊</button>
+        </form>
+
+        <hr>
+
+        <h1>🔐 登入</h1>
+        <form action="/signin" method="post">
+            <input type="email" name="email" placeholder="電子郵件" required>
+            <input type="password" name="password" placeholder="密碼" required>
+            <button type="submit">登入</button>
+        </form>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("success") === "1") {
+            alert("✅ 註冊成功！");
+            history.replaceState(null, "", location.pathname);
+        }
+        if (params.get("error")) {
+            alert("❌ " + decodeURIComponent(params.get("error")));
+            history.replaceState(null, "", location.pathname);
+        }
+    </script>
+</body>
+</html>

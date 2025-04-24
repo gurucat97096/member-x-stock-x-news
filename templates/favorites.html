@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>⭐ 我的收藏股票資訊</title>
+    <style>
+        body {
+            font-family: "Microsoft JhengHei", sans-serif;
+            background: url("/static/stock-bg.png") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .stock-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 280px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .stock-card h2 {
+            margin-top: 0;
+            color: #2980b9;
+        }
+
+        .stock-card p {
+            margin: 6px 0;
+        }
+
+        .stock-card form {
+            margin-top: 12px;
+            text-align: right;
+        }
+
+        .stock-card form button {
+            background-color: #e74c3c;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .stock-card form button:hover {
+            background-color: #c0392b;
+        }
+
+        .message {
+            text-align: center;
+            color: green;
+            font-weight: bold;
+        }
+
+        .action-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .action-links a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 6px;
+        }
+
+        .action-links a:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>⭐ 我的收藏股票資訊</h1>
+
+    {% if message %}
+        <p class="message">{{ message }}</p>
+    {% endif %}
+
+    {% if favorites_detail %}
+        <div class="card-container">
+            {% for stock in favorites_detail %}
+                <div class="stock-card">
+                    <h2>{{ stock.code }}</h2>
+                    {% for k, v in stock.info.items() %}
+                        <p><strong>{{ k }}</strong>：{{ v }}</p>
+                    {% endfor %}
+                    <form action="/remove" method="post">
+                        <input type="hidden" name="code" value="{{ stock.code }}">
+                        <button type="submit">❌ 移除收藏</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p style="text-align:center; color: white;">尚未收藏任何股票</p>
+    {% endif %}
+
+    <div class="action-links">
+        <a href="/stock">📈 回到查詢頁面</a>
+        <a href="/member">👤 回會員首頁</a>
+    </div>
+
+</body>
+</html>

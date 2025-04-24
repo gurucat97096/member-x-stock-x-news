@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>股票查詢系統</title>
+    <style>
+        body {
+            font-family: "Microsoft JhengHei", sans-serif;
+            background: url("/static/stock-bg.png") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 50px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        form {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .info-box {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #ccc;
+        }
+
+        .info-box p {
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+
+        .favorites {
+            margin-top: 30px;
+        }
+
+        .favorites h2 {
+            text-align: center;
+        }
+
+        .favorites form {
+            display: inline-block;
+            margin: 4px;
+        }
+
+        .message-box {
+            text-align: center;
+            margin-top: 20px;
+            color: green;
+            font-weight: bold;
+        }
+
+        .link-fav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .link-fav a {
+            text-decoration: none;
+            background-color: #2ecc71;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+
+        .link-fav a:hover {
+            background-color: #27ae60;
+        }
+
+        .btn-back {
+            background-color: #95a5a6;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .btn-back:hover {
+            background-color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📈 股票查詢</h1>
+
+        <div class="link-fav">
+            <a href="/favorites"class="btn-back">⭐ 查看我的收藏</a>
+            <a href="/member" class="btn-back">🏠 回會員首頁</a>
+        </div>
+
+        <form action="/search" method="post">
+            <input type="text" name="code" placeholder="輸入股票代碼（如 2330）" required>
+            <button type="submit">查詢</button>
+        </form>
+
+        {% if message %}
+        <div class="message-box">{{ message }}</div>
+        {% endif %}
+
+        {% if info %}
+        <div class="info-box">
+            <h2>📊 查詢結果 - {{ query }}</h2>
+            {% for k, v in info.items() %}
+                <p><strong>{{ k }}</strong>：{{ v }}</p>
+            {% endfor %}
+            <form action="/add" method="post">
+                <input type="hidden" name="code" value="{{ query }}">
+                <button type="submit">⭐ 加入收藏</button>
+            </form>
+        </div>
+        {% endif %}
+
+        {% if favorites %}
+        <div class="favorites">
+            <h2>⭐ 我的收藏</h2>
+            {% for code in favorites %}
+                <form action="/remove" method="post">
+                    <input type="hidden" name="code" value="{{ code }}">
+                    <button type="submit">❌ {{ code }}</button>
+                </form>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
