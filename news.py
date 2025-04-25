@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 router = APIRouter()
 templates = Jinja2Templates(directory="templates")
 
-API_KEY = "a85058c857c7d9989bf4d56ebf48b492"
+API_KEY = "你註冊的API KEY"
 
 @router.get("/member/news", response_class=HTMLResponse)
 def news_index(

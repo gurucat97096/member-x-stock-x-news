@@ -107,7 +107,7 @@ def add_favorite(request: Request, code: str = Form(...)):
         "info": info,
         "query": code,
         "favorites": favs,
-        "message": "✅ 已加入收藏" if added else "⚠️ 此股票已在收藏中"
+        "message": " 已加入收藏" if added else " 此股票已在收藏中"
     })
 
 @app.post("/remove", response_class=HTMLResponse)
@@ -123,7 +123,7 @@ def remove_favorite(request: Request, code: str = Form(...)):
     return templates.TemplateResponse("favorites.html", {
         "request": request,
         "favorites_detail": details,
-        "message": f"✅ 已移除 {code}" if removed else "⚠️ 不存在於收藏"
+        "message": f" 已移除 {code}" if removed else " 不存在於收藏"
     })
 
 @app.get("/search", response_class=HTMLResponse)
