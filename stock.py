@@ -12,19 +12,35 @@ templates = Jinja2Templates(directory="templates")
 FAVORITES_FILE = "favorites.json"
 
 field_translation = {
-    "previousClose": "前收市價", "open": "開市", "bid": "買盤", "ask": "賣出價",
-    "dayLow": "今日最低價", "dayHigh": "今日最高價",
-    "fiftyTwoWeekLow": "52週最低價", "fiftyTwoWeekHigh": "52週最高價",
-    "volume": "成交量", "averageVolume": "平均成交量",
-    "totalAssets": "淨資產", "bookValue": "每股資產淨值",
-    "trailingPE": "市盈率 (最近 12 個月)", "trailingEps": "每股盈利 (最近 12 個月)",
-    "dividendYield": "收益率", "dividendRate": "遠期股息",
-    "exDividendDate": "除息日", "nextEarningsDate": "業績公佈日",
-    "beta": "Beta 值 (5年)", "annualReportExpenseRatio": "支出比率 (淨計)",
-    "marketCap": "市值", "sector": "產業類別", "industry": "產業細項",
-    "longName": "公司全名", "shortName": "公司簡稱",
-    "recommendationKey": "分析師評等", "priceToBook": "股價淨值比",
-    "returnOnEquity": "股東權益報酬率 ROE", "earningsQuarterlyGrowth": "季度盈餘成長率"
+    "previousClose"             : "前收市價",
+    "open"                      : "開市",
+    "bid"                       : "買盤",
+    "ask"                       : "賣出價",
+    "dayLow"                    : "今日最低價",
+    "dayHigh"                   : "今日最高價",
+    "fiftyTwoWeekLow"           : "52週最低價",
+    "fiftyTwoWeekHigh"          : "52週最高價",
+    "volume"                    : "成交量",
+    "averageVolume"             : "平均成交量",
+    "marketCap"                 : "市值",
+    "totalAssets"               : "淨資產",
+    "bookValue"                 : "每股資產淨值",
+    "priceToBook"               : "股價淨值比",
+    "trailingPE"                : "市盈率 (最近 12 個月)",
+    "trailingEps"               : "每股盈利 (最近 12 個月)",
+    "dividendYield"             : "收益率",
+    "dividendRate"              : "遠期股息",
+    "exDividendDate"            : "除息日",
+    "nextEarningsDate"          : "業績公佈日",
+    "annualReportExpenseRatio"  : "支出比率 (淨計)",
+    "returnOnEquity"            : "股東權益報酬率 ROE",
+    "earningsQuarterlyGrowth"   : "季度盈餘成長率",
+    "beta"                      : "Beta 值 (5年)",
+    "recommendationKey"         : "分析師評等",
+    "sector"                    : "產業類別",
+    "industry"                  : "產業細項",
+    "longName"                  : "公司全名",
+    "shortName"                 : "公司簡稱"
 }
 
 def format_date(value):
@@ -47,7 +63,7 @@ def get_stock_info(code: str):
         fast_price = stock.fast_info.get("lastPrice")
         data = {}
         if fast_price:
-            data["📍 當前價格"] = f"{fast_price} 元"
+            data[" 當前價格"] = f"{fast_price} 元"
         for key, cname in field_translation.items():
             value = info.get(key)
             if is_meaningful(value):
@@ -102,7 +118,7 @@ def remove_favorite(request: Request, code: str = Form(...)):
         favs.remove(code)
         save_favorites(favs)
         removed = True
-    # 顯示刪除後的收藏頁
+
     details = [{"code": c, "info": get_stock_info(c)} for c in favs]
     return templates.TemplateResponse("favorites.html", {
         "request": request,
