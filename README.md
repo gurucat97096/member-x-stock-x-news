@@ -44,7 +44,8 @@
 
 ```bash
 # 1. 複製專案
-git clone https://github.com/gurucat97096/member-system.git
+git clone https://github.com/gurucat97096/member-x-stock-x-news
+.git
 cd member-system
 
 # 2. 建立虛擬環境（可選）
