@@ -1,24 +1,21 @@
 # 會員系統 x 即時新聞 x 股票查詢平台
 
 這是一個使用 **FastAPI** 建構的全端整合專案，結合會員登入註冊、股票即時查詢、GNews 新聞搜尋與股票收藏管理功能。
-
-![image](https://imgur.com/a/CTbK6ty)
-
+![image](https://i.imgur.com/CTbK6ty.png)
 
 ---
 
-##  專案介紹
+## 專案介紹
 
 使用者可以註冊並登入系統後，使用兩大功能：
-![image](https://imgur.com/Td4yjQj)
 
+![image](https://i.imgur.com/Td4yjQj.png)
 
-1. **GNews 即時新聞查詢**（支援多語言、主題搜尋）
- ![image](https://imgur.com/W6bdJsF)
+1. **GNews 即時新聞查詢**（支援多語言、主題搜尋）  
+   ![image](https://i.imgur.com/W6bdJsF.png)
 
-2. **股票查詢與收藏系統**（查詢台股個股資料並可加入收藏）
-![image]((https://imgur.com/yYhUgGE))
-
+2. **股票查詢與收藏系統**（查詢台股個股資料並可加入收藏）  
+   ![image](https://i.imgur.com/yYhUgGE.png)
 ---
 
 ##  功能特色
